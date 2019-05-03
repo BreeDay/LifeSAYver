@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Login
+      <div class="text-center" id="logout">Log-in to see your favorites!<br></div>
+      <div id="snapchat">
+      </div>
+
+      <div id="favorites_list">
+
+      </div>
+
+      <hr>
+        <script>
+           window.snapKitInit = function () {
+            var loginButtonIconId = 'snapchat';
+
+            snap.loginkit.mountButton(loginButtonIconId, {
+              clientId: 'e3bef7fa-e239-4fa3-96ce-ba83cfdcb23c',
+              redirectURI: 'https://www.lifesayver.com',
+              scopeList: [
+                'user.display_name'
+              ],
+              handleResponseCallback: function() {
+                snap.loginkit.fetchUserInfo()
+                  .then(data => snapchatTest(data)
+            );
+              },
+            });
+          };
+function snapchatTest(data){
+
+    console.log(data);
+    document.getElementById("snapchat").innerHTML = "Welcome back, <i style='font-size:larger'>" + data.data.me.displayName + "</i> | <a href='https://michaelscafemidtown.com/cu/' style='color: #F66733'>Log out</a>";
+
+    document.getElementById("logout").innerHTML = "";
+
+show_favorites = 1;
+reloadFavorites();
+
+updateList("");
+
+}
+
+(function (d, s, id) {
+        var js, sjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "https://sdk.snapkit.com/js/v1/login.js";
+        sjs.parentNode.insertBefore(js, sjs);
+      }(document, 'script', 'loginkit-sdk'));
+
+
+      </script>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
